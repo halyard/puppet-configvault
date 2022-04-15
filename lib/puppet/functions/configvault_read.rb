@@ -1,7 +1,8 @@
 require 'open3'
 
 Puppet::Functions.create_function(:'configvault_read') do
-  dispatch :read do                                                       param 'String', :key
+  dispatch :read do
+    param 'String', :key
     optional_param 'Boolean', :public
     optional_param 'String', :user
     optional_param 'String', :bucket
