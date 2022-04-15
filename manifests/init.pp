@@ -2,13 +2,11 @@
 #
 # @param bucket sets the default bucket for config data
 # @param version sets the release of configvault to use
-# @param envfile sets the location for AWS creds
 # @param binfile sets the location of the configvault binary
 #
 class configvault (
   String $bucket,
   String $version,
-  String $envfile,
   String $binfile,
 ) {
   $kernel = downcase($facts['kernel'])
@@ -32,7 +30,6 @@ class configvault (
 
   Configvault_Write {
     bucket  => $configvault::bucket,
-    envfile => $configvault::envfile,
     binfile => $configvault::binfile,
   }
 }

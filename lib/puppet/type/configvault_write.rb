@@ -41,17 +41,7 @@ Puppet::Type.newtype :configvault_write do
     end
   end
 
-  newparam :envfile do
-    desc 'The filepath to the credentials envfile'
-
-    validate do |value|
-      unless Pathname.new(value).absolute?
-        raise ArgumentError, '%s is not an absolute path' % value
-      end
-    end
-  end
-
   autorequire :file do
-    [self[:path], self[:envfile], '/usr/local/bin/configvault']
+    [self[:path], '/usr/local/bin/configvault']
   end
 end
