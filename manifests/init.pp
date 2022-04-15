@@ -28,7 +28,7 @@ class configvault (
     group  => 'root',
   }
 
-  ConfigvaultWrite {
+  Configvault_Write {
     bucket => $configvault::bucket,
   }
 }
