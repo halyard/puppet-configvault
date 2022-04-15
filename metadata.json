@@ -1,6 +1,6 @@
 {
   "name": "halyard-configvault",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Les Aker",
   "license": "MIT",
   "summary": "Access data via configvault",
@@ -8,7 +8,9 @@
   "project_page": "https://github.com/halyard/puppet-configvault",
   "issues_url": "https://github.com/halyard/puppet-configvault/issues",
   "dependencies": [
+
   ],
   "operatingsystem_support": [
+
   ]
 }
