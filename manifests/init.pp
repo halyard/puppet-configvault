@@ -3,11 +3,13 @@
 # @param bucket sets the default bucket for config data
 # @param version sets the release of configvault to use
 # @param envfile sets the location for AWS creds
+# @param binfile sets the location of the configvault binary
 #
 class configvault (
   String $bucket,
-  String $version = 'v0.0.1',
-  String $envfile = '/etc/configvault'
+  String $version = 'v0.0.2',
+  String $envfile = '/etc/configvault',
+  String $binfile = '/usr/local/bin/configvault',
 ) {
   $kernel = downcase($facts['kernel'])
   $arch = $facts['os']['architecture'] ? {
@@ -20,7 +22,7 @@ class configvault (
   $filename = "configvault_${kernel}_${arch}"
   $url = "https://github.com/akerl/configvault/releases/download/${version}/${filename}"
 
-  file { '/usr/local/bin/configvault':
+  file { $binfile:
     ensure => file,
     source => $url,
     mode   => '0755',
@@ -29,6 +31,8 @@ class configvault (
   }
 
   Configvault_Write {
-    bucket => $configvault::bucket,
+    bucket  => $configvault::bucket,
+    envfile => $configvault::envfile,
+    binfile => $configvault::binfile,
   }
 }

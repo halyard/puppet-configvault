@@ -3,10 +3,8 @@ Puppet::Type.type(:configvault_write).provide(:standard, :parent => Puppet::Prov
   end
 
   def destroy
-    File.unlink(@resource[:name])
   end
 
   def exists?
-    File.exists?(@resource[:name])
   end
 end
