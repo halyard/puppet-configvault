@@ -7,9 +7,9 @@
 #
 class configvault (
   String $bucket,
-  String $version = 'v0.0.2',
-  String $envfile = '/etc/configvault',
-  String $binfile = '/usr/local/bin/configvault',
+  String $version,
+  String $envfile,
+  String $binfile,
 ) {
   $kernel = downcase($facts['kernel'])
   $arch = $facts['os']['architecture'] ? {

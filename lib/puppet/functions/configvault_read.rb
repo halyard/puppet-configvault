@@ -1,8 +1,7 @@
 require 'open3'
 
 Puppet::Functions.create_function(:'configvault_read') do
-  dispatch :read do
-    param 'String', :key
+  dispatch :read do                                                       param 'String', :key
     optional_param 'Boolean', :public
     optional_param 'String', :user
     optional_param 'String', :bucket
@@ -12,9 +11,9 @@ Puppet::Functions.create_function(:'configvault_read') do
   end
 
   def read(key, is_public = true, user = nil, bucket = nil, envfile = nil, binfile = nil)
-    bucket ||= scope['configvault']['bucket']
-    envfile ||= scope['configvault']['envfile']
-    binfile ||= scope['configvault']['binfile']
+    bucket ||= lookup('configvault::bucket')
+    envfile ||= lookup('configvault::envfile')
+    binfile ||= lookup('configvault::binfile')
 
     env = parse_env(envfile)
     args = [binfile, 'read', bucket, key]
@@ -25,8 +24,8 @@ Puppet::Functions.create_function(:'configvault_read') do
     stdout
   end
 
-  def scope
-    @scope ||= closure_scope
+  def lookup(key)
+    Puppet::Pops::Lookup.lookup(key, nil, nil, false, nil, Puppet::Pops::Lookup::Invocation.new(closure_scope, {}, {}))
   end
 
   def parse_env(envfile)
