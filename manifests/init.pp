@@ -1,6 +1,8 @@
 # @summary Deploy configvault tool for config loading/sharing
 #
+# @param bucket sets the default bucket for config data
 # @param version sets the release of configvault to use
+# @param envfile sets the location for AWS creds
 #
 class configvault (
   String $bucket,
@@ -18,7 +20,6 @@ class configvault (
   $filename = "configvault_${kernel}_${arch}"
   $url = "https://github.com/akerl/configvault/releases/download/${version}/${filename}"
 
-
   file { '/usr/local/bin/configvault':
     ensure => file,
     source => $url,
@@ -28,6 +29,6 @@ class configvault (
   }
 
   ConfigvaultWrite {
-    bucket => $configvault::bucket
+    bucket => $configvault::bucket,
   }
 }
