@@ -6,7 +6,7 @@
 #
 class configvault (
   String $bucket,
-  String $version = '0.0.1',
+  String $version = 'v0.0.1',
   String $envfile = '/etc/configvault'
 ) {
   $kernel = downcase($facts['kernel'])
