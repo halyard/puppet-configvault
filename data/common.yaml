@@ -1,2 +1,2 @@
-configvault::version: v0.0.2
+configvault::version: v0.0.3
 configvault::binfile: /usr/local/bin/configvault

@@ -17,8 +17,8 @@ Puppet::Functions.create_function(:'configvault_read') do
     args = [binfile, 'read', bucket, key]
     args << '--private' unless is_public
     args << '--user=' + user if user
-    stdout, stderr, status = Open3.capture3(args)
-    fail('Configvault failed: ' + stderr) if status.value != 0
+    stdout, stderr, status = Open3.capture3(*args)
+    fail('Configvault failed: ' + stderr) unless status.success?
     stdout
   end
 
