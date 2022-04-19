@@ -24,7 +24,7 @@ Puppet::Type.type(:configvault_write).provide(:standard, :parent => Puppet::Prov
       @resource[:binfile],
       action,
       @resource[:bucket],
-      @resouce[:key],
+      @resource[:key],
       '--user=' + @resource[:user]
     ]
     if !@resource[:public] && (action == 'read' || action == 'list')
