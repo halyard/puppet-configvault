@@ -3,6 +3,7 @@
 # @param bucket sets the default bucket for config data
 # @param version sets the release of configvault to use
 # @param binfile sets the location of the configvault binary
+# @param user_prefix sets prefix to use before certname for default user
 #
 class configvault (
   String $bucket,
