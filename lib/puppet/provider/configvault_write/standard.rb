@@ -27,10 +27,10 @@ Puppet::Type.type(:configvault_write).provide(:standard, :parent => Puppet::Prov
       @resouce[:key],
       '--user=' + @resource[:user]
     ]
-    if @resource[:public] && (action == 'read' || action == 'list')
-      args << '--public'
-    elsif !@resource[:public] && (action == 'delete' || action == 'delete')
+    if !@resource[:public] && (action == 'read' || action == 'list')
       args << '--private'
+    elsif @resource[:public] && (action == 'write' || action == 'delete')
+      args << '--public'
     end
     args
   end
