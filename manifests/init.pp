@@ -3,13 +3,13 @@
 # @param bucket sets the default bucket for config data
 # @param version sets the release of configvault to use
 # @param binfile sets the location of the configvault binary
-# @param user_prefix sets prefix to use before certname for default user
+# @param user sets the default username for configvault access
 #
 class configvault (
   String $bucket,
   String $version,
   String $binfile,
-  String $user_prefix,
+  String $user,
 ) {
   $kernel = downcase($facts['kernel'])
   $arch = $facts['os']['architecture'] ? {
@@ -28,11 +28,5 @@ class configvault (
     mode   => '0755',
     owner  => 'root',
     group  => 'root',
-  }
-
-  Configvault_Write {
-    bucket  => $configvault::bucket,
-    user    => "${user_prefix}${trusted['hostname']}",
-    binfile => $configvault::binfile,
   }
 }
