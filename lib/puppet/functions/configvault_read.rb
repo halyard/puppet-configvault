@@ -13,7 +13,7 @@ Puppet::Functions.create_function(:'configvault_read') do
   def read(key, is_public = true, user = nil, bucket = nil, binfile = nil)
     bucket ||= lookup('configvault::bucket')
     binfile ||= lookup('configvault::binfile')
-    user ||= closure_scope['trusted']['hostname']
+    user ||= lookup('configvault::user_prefix') + closure_scope['trusted']['hostname']
 
     args = [binfile, 'read', bucket, key, '--user=' + user]
     args << '--private' unless is_public
