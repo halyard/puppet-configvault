@@ -44,4 +44,8 @@ Puppet::Type.type(:configvault_write).provide(:standard, :parent => Puppet::Prov
     end
     stdout
   end
+
+  def instances
+    []
+  end
 end
