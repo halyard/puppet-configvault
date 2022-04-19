@@ -1,6 +1,6 @@
 {
   "name": "halyard-configvault",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Les Aker",
   "license": "MIT",
   "summary": "Access data via configvault",
