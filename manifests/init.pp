@@ -30,6 +30,7 @@ class configvault (
 
   Configvault_Write {
     bucket  => $configvault::bucket,
+    user    => $trusted['hostname'],
     binfile => $configvault::binfile,
   }
 }
