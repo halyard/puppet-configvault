@@ -37,9 +37,13 @@ Puppet::Type.newtype :configvault_write do
     desc 'User to write file for'
 
     validate do |value|
-      unless value =~ /^\w+$/
+      unless value =~ /^[a-zA-Z0-9_=]+$/ || value.nil
         raise ArgumentError, '%s is not a valid user % value'
       end
+    end
+
+    defaultto do
+      nil
     end
   end
 
@@ -47,9 +51,13 @@ Puppet::Type.newtype :configvault_write do
     desc 'Bucket to write file to'
 
     validate do |value|
-      unless value =~ /^\w+$/
+      unless value =~ /^[a-zA-Z0-9_=]+$/ || value.nil
         raise ArgumentError, '%s is not a valid bucket' % value
       end
+    end
+
+    defaultto do
+      nil
     end
   end
 
@@ -57,9 +65,13 @@ Puppet::Type.newtype :configvault_write do
     desc 'Path for configvault binary'
 
     validate do |value|
-      unless Pathname.new(value).absolute?
+      unless Pathname.new(value).absolute? || value.nil
         raise ArgumentError, '%s is not an absolute path' % value
       end
+    end
+
+    defaultto do
+      nil
     end
   end
 
