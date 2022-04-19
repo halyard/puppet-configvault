@@ -3,7 +3,11 @@ require 'puppet/parameter/boolean'
 
 Puppet::Type.newtype :configvault_write do
 
-  ensurable
+  ensurable do
+    desc 'Manage the state of this type.'
+    defaultvalues
+    defaultto :present
+  end
 
   newparam :key, :namevar => true do
     desc 'The key for the entry'
