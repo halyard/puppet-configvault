@@ -32,7 +32,7 @@ class configvault (
 
   Configvault_Write {
     bucket  => $configvault::bucket,
-    user    => $user_prefix + $trusted['hostname'],
+    user    => "${user_prefix}${trusted['hostname']}",
     binfile => $configvault::binfile,
   }
 }
