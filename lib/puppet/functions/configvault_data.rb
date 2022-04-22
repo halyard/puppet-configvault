@@ -5,16 +5,21 @@ Puppet::Functions.create_function(:configvault_data) do
   end
 
   def configvault_data(options, context)
-    raw = call_function(
-      'configvault_read',
-      'hiera/config.yaml',
-      false,
-      options['user'],
-      options['bucket'],
-      options['binfile']
-    )
+    begin
+      raw = call_function(
+        'configvault_read',
+        'hiera/config.yaml',
+        false,
+        options['user'],
+        options['bucket'],
+        options['binfile']
+      )
+    rescue
+      Puppet.warning('configvault hiera failed to load')
+      context.not_found
+      return {}
+    end
     data = Puppet::Util::Yaml.safe_load(raw)
-    context.not_found if data.empty? || !data.is_a?(Hash)
     context.cache_all(data)
     data
   end
