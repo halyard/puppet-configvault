@@ -17,6 +17,7 @@ Puppet::Functions.create_function(:configvault_data) do
     rescue
       Puppet.warning('configvault hiera failed to load')
       context.not_found
+      context.cache_all({})
       return {}
     end
     data = Puppet::Util::Yaml.safe_load(raw)
