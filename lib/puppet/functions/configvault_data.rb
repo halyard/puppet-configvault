@@ -21,6 +21,12 @@ Puppet::Functions.create_function(:configvault_data) do
       return {}
     end
     data = Puppet::Util::Yaml.safe_load(raw)
+    if data.nil? || !data.is_a? Hash
+      Puppet.warning('configvault hiera failed to parse')
+      context.not_found
+      context.cache_all({})
+      return {}
+    end
     context.cache_all(data)
     data
   end
