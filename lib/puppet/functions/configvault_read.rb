@@ -7,10 +7,11 @@ Puppet::Functions.create_function(:'configvault_read') do
     optional_param 'String', :user
     optional_param 'String', :bucket
     optional_param 'String', :binfile
+    optional_param 'String', :default
     return_type 'String'
   end
 
-  def read(key, is_public = true, user = nil, bucket = nil, binfile = nil)
+  def read(key, is_public = true, user = nil, bucket = nil, binfile = nil, default = nil)
     bucket ||= lookup('configvault::bucket')
     binfile ||= lookup('configvault::binfile')
     user ||= lookup('configvault::user')
@@ -18,8 +19,9 @@ Puppet::Functions.create_function(:'configvault_read') do
     args = [binfile, 'read', bucket, key, '--user=' + user]
     args << '--private' unless is_public
     stdout, stderr, status = Open3.capture3(*args)
-    fail('Configvault failed: ' + stderr) unless status.success?
-    stdout
+    return stdout if status.success?
+    return default if default
+    fail('Configvault failed: ' + stderr)
   end
 
   def lookup(key)
