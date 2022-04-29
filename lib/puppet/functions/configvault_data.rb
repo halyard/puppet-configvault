@@ -5,6 +5,7 @@ Puppet::Functions.create_function(:configvault_data) do
   end
 
   def configvault_data(options, context)
+    context.not_found if context.cache_value('__failed__')
     begin
       raw = call_function(
         'configvault_read',
@@ -17,16 +18,14 @@ Puppet::Functions.create_function(:configvault_data) do
       )
     rescue
       Puppet.info('configvault hiera failed to load')
+      context.cache('__failed__', true)
       context.not_found
-      context.cache_all({})
-      return {}
     end
     data = Puppet::Util::Yaml.safe_load(raw)
     if data.nil? || !data.is_a?(Hash)
       Puppet.warning('configvault hiera failed to parse')
+      context.cache('__failed__', true)
       context.not_found
-      context.cache_all({})
-      return {}
     end
     context.cache_all(data)
     data
