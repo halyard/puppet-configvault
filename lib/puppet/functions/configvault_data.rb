@@ -16,7 +16,7 @@ Puppet::Functions.create_function(:configvault_data) do
         options['binfile']
       )
     rescue
-      Puppet.warning('configvault hiera failed to load')
+      Puppet.info('configvault hiera failed to load')
       context.not_found
       context.cache_all({})
       return {}
