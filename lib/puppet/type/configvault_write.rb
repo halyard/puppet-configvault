@@ -13,7 +13,7 @@ Puppet::Type.newtype :configvault_write do
     desc 'The key for the entry'
 
     validate do |value|
-      unless value =~ /^\w+$/
+      unless value =~ /^[\w/.]+$/
         raise ArgumentError, '%s is not a valid key' % value
       end
     end
