@@ -4,14 +4,14 @@ Puppet::Functions.create_function(:'configvault_read') do
   dispatch :read do
     param 'String', :key
     optional_param 'Boolean', :public
+    optional_param 'String', :default
     optional_param 'String', :user
     optional_param 'String', :bucket
     optional_param 'String', :binfile
-    optional_param 'String', :default
     return_type 'String'
   end
 
-  def read(key, is_public = true, user = nil, bucket = nil, binfile = nil, default = nil)
+  def read(key, is_public = true, default = nil, user = nil, bucket = nil, binfile = nil)
     bucket ||= lookup('configvault::bucket')
     binfile ||= lookup('configvault::binfile')
     user ||= lookup('configvault::user')
