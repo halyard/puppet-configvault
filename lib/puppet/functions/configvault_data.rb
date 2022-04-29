@@ -10,6 +10,7 @@ Puppet::Functions.create_function(:configvault_data) do
         'configvault_read',
         'hiera/config.yaml',
         false,
+        nil,
         options['user'],
         options['bucket'],
         options['binfile']
