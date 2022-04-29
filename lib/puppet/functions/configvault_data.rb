@@ -5,7 +5,7 @@ Puppet::Functions.create_function(:configvault_data) do
   end
 
   def configvault_data(options, context)
-    context.not_found if context.cache_value('__failed__')
+    context.not_found if context.cached_value('__failed__')
     begin
       raw = call_function(
         'configvault_read',
