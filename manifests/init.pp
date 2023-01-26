@@ -17,6 +17,7 @@ class configvault (
     'arm64'   => 'arm64',
     'aarch64' => 'arm64',
     'arm'     => 'arm',
+    'armv7l'  => 'arm',
     default   => 'error',
   }
 
